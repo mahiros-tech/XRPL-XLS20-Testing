@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+// Dependencies
+import React from 'react';
 
-function App() {
+// Components
+import WalletCreationContainer from './components/WalletCreationContainer.component';
+import QueryContainer from './components/QueryContainer.component';
+import XRPSendingContainer from './components/XRPSendingContainer.component';
+
+const App = ({ xrplClient, xrpl }) => {
+  console.log('>> App component rendered <<');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <WalletCreationContainer xrplClient={xrplClient} />
+      <QueryContainer xrplClient={xrplClient} />
+      <XRPSendingContainer xrplClient={xrplClient} xrpl={xrpl} />
     </div>
   );
-}
+};
 
 export default App;
