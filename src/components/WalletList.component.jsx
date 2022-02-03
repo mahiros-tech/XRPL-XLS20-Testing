@@ -9,7 +9,7 @@ const WalletList = ({ wallets }) => {
   return (
     <div
       className='wallet-list-component'
-      style={{ outline: '5px solid grey', display: 'flex', flexDirection: 'column', padding: '25px' }}
+      style={{ outline: '5px solid grey', display: 'flex', flexDirection: 'column', padding: '25px', marginTop: '25px' }}
     >
       <h1>WalletList component</h1>
       <ul>

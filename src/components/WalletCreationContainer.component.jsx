@@ -3,10 +3,8 @@ import React, { useEffect, useState } from 'react';
 // Components
 import WalletList from './WalletList.component';
 
-const WalletCreationContainer = ({ xrplClient }) => {
+const WalletCreationContainer = ({ xrplClient, walletsState, setWalletsState }) => {
   console.log('>> WalletCreationContainer component rendered <<');
-
-  const [walletsState, setWalletsState] = useState([]);
 
   const createFundedWallet = () => {
     xrplClient.fundWallet()

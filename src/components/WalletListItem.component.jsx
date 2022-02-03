@@ -5,6 +5,7 @@ const WalletListItem = ({ wallet }) => {
 
   return (
     <li style={{ display: 'flex', flexDirection: 'column', margin: '25px' }}>
+      <h1>WalletListItem component</h1>
       <span className='balance'><b>balance:</b> {wallet.balance}</span>
       <span className='wallet-classic-address'><b>classicAddress:</b> {wallet.wallet.classicAddress}</span>
       <span className='wallet-private-key'><b>privateKey:</b> {wallet.wallet.privateKey}</span>
