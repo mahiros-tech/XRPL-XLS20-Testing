@@ -76,11 +76,11 @@ const XRPSendingContainer = ({ xrplClient, xrpl, walletsState, setWalletsState }
 
       console.log(response);
 
-      // await setWalletsState(walletsState.map((wallet) => {
-      //   if (wallet.wallet.classicAddress === response.result.account_data.Account) {
-      //     return { ...wallet, balance: response.result.account_data.Balance };
-      //   }
-      // }));
+      await setWalletsState(walletsState.map((wallet) => {
+        if (wallet.wallet.classicAddress === response.result.account_data.Account) {
+          return { ...wallet, balance: response.result.account_data.Balance };
+        }
+      }));
     });
   };
 
