@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 const NFTContainer = ({ xrpl }) => {
-
+  // State to hold connection to xls 20 developer network
   const [xls20ClientState, setXls20ClientState] = useState(null);
 
-  // useEffect(async () => {
-  //   const client = new xrpl.Client('wss://xls20-sandbox.rippletest.net:51233');
-  //   await client.connect();
-  //   console.log('Connected to Sandbox');
-  // }, []);
+
 
   const connectToXls20Network = async () => {
     const client = new xrpl.Client("wss://xls20-sandbox.rippletest.net:51233");
