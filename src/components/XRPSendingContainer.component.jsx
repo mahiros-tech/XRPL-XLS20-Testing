@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const XRPSendingContainer = ({ xrplClient, xrpl, walletsState }) => {
+const XRPSendingContainer = ({ xrplClient, xrpl, walletsState, setWalletsState }) => {
   console.log('>> XRPSendingContainer component rendered <<')
 
   // State to hold basic instructions to use when preparing for a Payment transaction
@@ -66,6 +66,44 @@ const XRPSendingContainer = ({ xrplClient, xrpl, walletsState }) => {
     setPreparedInputState((prev) => ({ ...prev, destination: event.target.value }));
   };
 
+  const queryAccounts = () => {
+    walletsState.map(async (wallet) => {
+      const response = await xrplClient.request({
+        "command": "account_info",
+        "account": wallet.wallet.classicAddress,
+        "ledger_index": "validated"
+      });
+
+      console.log(response);
+
+      // await setWalletsState(walletsState.map((wallet) => {
+      //   if (wallet.wallet.classicAddress === response.result.account_data.Account) {
+      //     return { ...wallet, balance: response.result.account_data.Balance };
+      //   }
+      // }));
+    });
+  };
+
+  // useEffect((prev) => {
+  //   if (prev) {
+  //     walletsState.map(async (wallet) => {
+  //       const response = await xrplClient.request({
+  //         "command": "account_info",
+  //         "account": wallet.wallet.classicAddress,
+  //         "ledger_index": "validated"
+  //       });
+
+  //       setWalletsState(walletsState.map((wallet) => {
+  //         if (wallet.wallet.classicAddress === response.result.account_data.Account) {
+  //           return { ...wallet, balance: response.result.account_data.Balance };
+  //         }
+
+  //         return wallet;
+  //       }));
+  //     });
+  //   }
+  // }, [transactionStatusState, xrplClient, walletsState, setWalletsState])
+
   // Output of states for debugging purposes
   useEffect(() => {
     console.log('preparedInputState:', preparedInputState);
@@ -74,10 +112,6 @@ const XRPSendingContainer = ({ xrplClient, xrpl, walletsState }) => {
   useEffect(() => {
     console.log('preparedPaymentTransactionState:', preparedPaymentTransactionState);
   }, [preparedPaymentTransactionState]);
-
-  useEffect(() => {
-    console.log('transactionStatusState:', transactionStatusState);
-  }, [transactionStatusState]);
 
   return (
     <div
@@ -211,7 +245,7 @@ const XRPSendingContainer = ({ xrplClient, xrpl, walletsState }) => {
             <span
               style={{ marginBottom: '25px' }}
             >
-              Note: all the information needed to check on the details of a transaction's outcome when it appears in a validated ledger version is above, but calling the getBalanceChanges() method can give you specific balance changing information on the accounts in focus.
+              Note: all the information needed to check on the details of a transaction's outcome when it appears in a validated ledger version is above, but the getBalanceChanges() method can give you specific balance changing information on the accounts in focus.
             </span>
             <span
               style={{ display: 'flex', flexDirection: 'column' }}
@@ -235,6 +269,7 @@ const XRPSendingContainer = ({ xrplClient, xrpl, walletsState }) => {
                 })
               }
               <span>{']'}</span>
+              <button onClick={queryAccounts}>UPDATE WALLETS</button>
             </span>
           </div>
         </div>
